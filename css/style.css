@@ -1616,88 +1616,135 @@ td small {
             flex-start;
 
 
-       /* =========================================
-   SELLER ORDER MANAGEMENT
+           
+
+
+/* =========================================
+   SELLER — CUSTOMER ORDERS
+   Premium POS / Order Management UI
 ========================================= */
 
 .orders-container {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 14px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
 }
 
 
+/* =========================================
+   ORDER CARD
+========================================= */
+
 .order-card {
-    background:
-        #fcfbf8;
+    position: relative;
 
-    border:
-        1px solid var(--border);
+    background: #ffffff;
 
-    border-radius:
-        14px;
+    border: 1px solid #e8e3da;
+
+    border-radius: 20px;
 
     overflow: hidden;
 
+    box-shadow:
+        0 4px 18px rgba(43, 39, 29, 0.05);
+
     transition:
-        .2s ease;
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
 }
 
 
 .order-card:hover {
-    box-shadow:
-        0 8px 25px
-        rgba(43,39,29,.06);
+    transform: translateY(-3px);
 
-    transform:
-        translateY(-2px);
+    border-color: #d9d1c4;
+
+    box-shadow:
+        0 12px 30px rgba(43, 39, 29, 0.09);
 }
 
 
-/* ORDER HEADER */
+/* =========================================
+   STATUS TOP BAR
+========================================= */
+
+.order-card::before {
+    content: "";
+
+    display: block;
+
+    width: 100%;
+
+    height: 5px;
+
+    background: #e9a15b;
+}
+
+
+/* Completed */
+
+.order-card:has(.status-completed)::before {
+    background: #4e815d;
+}
+
+
+/* Cancelled */
+
+.order-card:has(.status-cancelled)::before {
+    background: #c87870;
+}
+
+
+/* =========================================
+   ORDER HEADER
+========================================= */
 
 .order-card-header {
     display: flex;
 
     align-items: center;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
     gap: 15px;
 
-    padding:
-        17px 20px;
+    padding: 20px 21px 16px;
 
-    background:
-        #f8f6f1;
+    background: #fff;
 
-    border-bottom:
-        1px solid var(--border);
+    border-bottom: 1px solid #eeeae3;
 }
 
 
 .order-number {
-    display: inline-block;
+    display: block;
 
-    color:
-        var(--primary-dark);
+    color: #294735;
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 21px;
 
     font-weight: 700;
 
-    font-size: 14px;
+    line-height: 1.1;
 }
 
 
 .order-time {
-    margin-left: 9px;
+    display: block;
 
-    color:
-        var(--muted);
+    margin-top: 5px;
+
+    color: #9a978f;
 
     font-size: 10px;
+
+    letter-spacing: 0.2px;
 }
 
 
@@ -1710,57 +1757,62 @@ td small {
 
     align-items: center;
 
-    justify-content: center;
+    gap: 6px;
 
-    min-width: 82px;
+    padding: 7px 12px;
 
-    padding:
-        6px 11px;
-
-    border-radius:
-        30px;
+    border-radius: 30px;
 
     font-size: 9px;
 
-    font-weight: 700;
+    font-weight: 800;
 
-    letter-spacing: .7px;
+    letter-spacing: 0.8px;
 
-    text-transform:
-        uppercase;
+    text-transform: uppercase;
+
+    white-space: nowrap;
 }
 
 
-/* PENDING */
+/* Status dot */
+
+.status-badge::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+
+/* Pending */
 
 .status-pending {
-    background:
-        #fff0dc;
+    background: #fff1dd;
 
-    color:
-        #a86c2e;
+    color: #ad702f;
 }
 
 
-/* COMPLETED */
+/* Completed */
 
 .status-completed {
-    background:
-        #e4f0e7;
+    background: #e5f1e8;
 
-    color:
-        #3d7350;
+    color: #477755;
 }
 
 
-/* CANCELLED */
+/* Cancelled */
 
 .status-cancelled {
-    background:
-        #f8e5e3;
+    background: #f8e5e3;
 
-    color:
-        #a45d58;
+    color: #a65f58;
 }
 
 
@@ -1769,8 +1821,7 @@ td small {
 ========================================= */
 
 .order-items {
-    padding:
-        5px 20px;
+    padding: 5px 21px;
 }
 
 
@@ -1779,44 +1830,55 @@ td small {
 
     align-items: center;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
     gap: 20px;
 
-    padding:
-        13px 0;
+    padding: 15px 0;
 
     border-bottom:
-        1px dashed #e7e1d8;
+        1px dashed #e5e0d7;
 }
 
 
 .order-item:last-child {
-    border-bottom:
-        none;
+    border-bottom: none;
+}
+
+
+.order-item > div:first-child {
+    min-width: 0;
 }
 
 
 .order-item strong {
     display: block;
 
-    color:
-        var(--text);
+    color: #302f29;
 
     font-size: 13px;
+
+    font-weight: 700;
 }
 
 
 .order-item small {
     display: block;
 
-    color:
-        var(--muted);
+    margin-top: 5px;
+
+    color: #99958c;
 
     font-size: 10px;
+}
 
-    margin-top: 3px;
+
+.order-item > strong {
+    color: #385c45;
+
+    font-size: 13px;
+
+    white-space: nowrap;
 }
 
 
@@ -1829,43 +1891,53 @@ td small {
 
     align-items: center;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    gap: 20px;
+    gap: 18px;
 
-    padding:
-        17px 20px;
-
-    border-top:
-        1px solid var(--border);
+    padding: 17px 21px;
 
     background:
-        white;
+        linear-gradient(
+            to bottom,
+            #fcfbf8,
+            #f8f6f1
+        );
+
+    border-top: 1px solid #eeeae3;
+}
+
+
+/* =========================================
+   TOTAL
+========================================= */
+
+.order-card-footer > div:first-child {
+    flex-shrink: 0;
 }
 
 
 .order-card-footer > div:first-child span {
     display: block;
 
-    color:
-        var(--muted);
+    margin-bottom: 4px;
+
+    color: #aaa59b;
 
     font-size: 8px;
 
+    font-weight: 800;
+
     letter-spacing: 1.5px;
-
-    font-weight: 700;
-
-    margin-bottom: 4px;
 }
 
 
 .order-card-footer > div:first-child strong {
-    color:
-        var(--primary-dark);
+    color: #294735;
 
-    font-size: 19px;
+    font-size: 21px;
+
+    font-weight: 800;
 }
 
 
@@ -1878,17 +1950,20 @@ td small {
 
     align-items: center;
 
+    justify-content: flex-end;
+
     gap: 7px;
 }
 
 
 .order-actions button {
+    min-height: 37px;
+
     border: none;
 
-    padding:
-        9px 13px;
+    padding: 0 13px;
 
-    border-radius: 8px;
+    border-radius: 9px;
 
     font-family:
         "DM Sans",
@@ -1901,68 +1976,154 @@ td small {
     cursor: pointer;
 
     transition:
-        .2s ease;
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
 }
 
 
-/* COMPLETE */
+.order-actions button:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================================
+   COMPLETE BUTTON
+========================================= */
 
 .complete-button {
-    background:
-        var(--primary);
+    background: #385c45;
 
-    color: white;
+    color: #ffffff;
+
+    box-shadow:
+        0 4px 10px rgba(56, 92, 69, 0.15);
 }
 
 
 .complete-button:hover {
-    background:
-        var(--primary-dark);
+    background: #294735;
 
-    transform:
-        translateY(-1px);
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(56, 92, 69, 0.22);
 }
 
 
-/* CANCEL */
+/* =========================================
+   CANCEL BUTTON
+========================================= */
 
 .cancel-button {
-    background:
-        var(--pink-soft);
+    background: #f8e9e7;
 
-    color:
-        #9b625d;
+    color: #9e625d;
 }
 
 
 .cancel-button:hover {
-    background:
-        var(--pink);
+    background: #e8b0aa;
 
-    color: white;
+    color: #ffffff;
+
+    transform: translateY(-1px);
 }
 
 
-/* REOPEN */
+/* =========================================
+   MOVE TO PENDING
+========================================= */
 
 .reopen-button {
-    background:
-        var(--surface-soft);
+    background: #eeeae2;
 
-    color:
-        var(--muted);
+    color: #6f6b62;
 
-    border:
-        1px solid var(--border) !important;
+    border: 1px solid #ded8cd !important;
 }
 
 
 .reopen-button:hover {
-    background:
-        var(--primary-soft);
+    background: #e5eee7;
 
-    color:
-        var(--primary);
+    color: #385c45;
+
+    border-color: #cadacd !important;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   PENDING — SLIGHT ATTENTION
+========================================= */
+
+.order-card:has(.status-pending) {
+    border-color: #eadbc7;
+}
+
+
+.order-card:has(.status-pending) .order-number::after {
+    content: " NEW";
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    margin-left: 7px;
+
+    padding: 3px 6px;
+
+    border-radius: 5px;
+
+    background: #fff1dd;
+
+    color: #ad702f;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 7px;
+
+    letter-spacing: 0.8px;
+}
+
+
+/* =========================================
+   COMPLETED — CLEANER APPEARANCE
+========================================= */
+
+.order-card:has(.status-completed) {
+    opacity: 0.92;
+}
+
+
+.order-card:has(.status-completed):hover {
+    opacity: 1;
+}
+
+
+/* =========================================
+   CANCELLED — MUTED APPEARANCE
+========================================= */
+
+.order-card:has(.status-cancelled) {
+    opacity: 0.72;
+}
+
+
+.order-card:has(.status-cancelled):hover {
+    opacity: 0.9;
+}
+
+
+.order-card:has(.status-cancelled)
+.order-item strong {
+    text-decoration: line-through;
+
+    text-decoration-color: #c9c4ba;
 }
 
 
@@ -1971,75 +2132,208 @@ td small {
 ========================================= */
 
 .no-orders {
+    grid-column: 1 / -1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 260px;
+
+    padding: 45px 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #faf8f4
+        );
+
+    border: 1px dashed #ddd6ca;
+
+    border-radius: 18px;
+
     text-align: center;
 
-    padding:
-        50px 20px;
-
-    color:
-        var(--muted);
+    color: #9b978e;
 }
 
 
 .no-orders-icon {
-    width: 55px;
-    height: 55px;
-
     display: flex;
 
     align-items: center;
 
     justify-content: center;
 
-    margin:
-        0 auto 12px;
+    width: 62px;
+    height: 62px;
 
-    background:
-        var(--surface-soft);
+    margin-bottom: 14px;
+
+    background: #f1eee7;
 
     border-radius: 50%;
 
-    font-size: 22px;
+    font-size: 25px;
 }
 
 
 .no-orders strong {
     display: block;
 
-    color:
-        var(--text);
+    margin-bottom: 5px;
+
+    color: #38362f;
 
     font-size: 14px;
-
-    margin-bottom: 4px;
 }
 
 
 .no-orders p {
+    color: #9a968d;
+
     font-size: 11px;
 }
 
 
 /* =========================================
-   SELLER MOBILE
+   STATUS FILTER
+========================================= */
+
+#statusFilter {
+    appearance: none;
+
+    min-width: 145px;
+
+    padding:
+        10px 35px 10px 13px;
+
+    background:
+        #ffffff;
+
+    background-image:
+        linear-gradient(
+            45deg,
+            transparent 50%,
+            #77736b 50%
+        ),
+        linear-gradient(
+            135deg,
+            #77736b 50%,
+            transparent 50%
+        );
+
+    background-position:
+        calc(100% - 15px) 14px,
+        calc(100% - 10px) 14px;
+
+    background-size:
+        5px 5px,
+        5px 5px;
+
+    background-repeat:
+        no-repeat;
+
+    border:
+        1px solid #e2ddd4;
+
+    border-radius:
+        9px;
+
+    color:
+        #48463f;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size:
+        11px;
+
+    font-weight:
+        600;
+
+    outline:
+        none;
+
+    cursor:
+        pointer;
+
+    transition:
+        .2s ease;
+}
+
+
+#statusFilter:hover,
+#statusFilter:focus {
+    border-color:
+        #bfcfc2;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(56, 92, 69, 0.07);
+}
+
+
+/* =========================================
+   RESPONSIVE — TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .orders-container {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE — MOBILE
 ========================================= */
 
 @media (max-width: 600px) {
 
-    .order-card-header {
-        align-items:
-            flex-start;
+    .orders-container {
+        grid-template-columns: 1fr;
 
-        flex-direction:
-            column;
+        gap: 13px;
     }
 
 
-    .order-time {
-        display: block;
+    .order-card-header {
+        align-items: flex-start;
 
-        margin:
-            5px 0 0;
+        flex-direction: column;
+
+        padding: 17px;
+    }
+
+
+    .order-number {
+        font-size: 19px;
+    }
+
+
+    .status-badge {
+        align-self: flex-start;
+    }
+
+
+    .order-items {
+        padding:
+            4px 17px;
+    }
+
+
+    .order-item {
+        padding:
+            13px 0;
     }
 
 
@@ -2049,16 +2343,30 @@ td small {
 
         flex-direction:
             column;
+
+        padding:
+            16px 17px;
     }
 
 
     .order-actions {
         width: 100%;
+
+        justify-content:
+            stretch;
     }
 
 
     .order-actions button {
         flex: 1;
+
+        padding:
+            0 9px;
+    }
+
+
+    #statusFilter {
+        width: 100%;
     }
 
    }
