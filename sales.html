@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
 
+<head>
     <meta charset="UTF-8">
 
     <meta
@@ -9,240 +9,229 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Silog+ | Sales Report</title>
+    <title>Silog+ | Seller</title>
 
     <link
         rel="stylesheet"
         href="css/style.css"
     >
-
 </head>
 
 <body>
 
-    <main class="sales-page">
+<main class="sales-page">
 
-        <!-- HEADER -->
+    <!-- HEADER -->
 
-        <header class="sales-header">
+    <header class="sales-header">
+
+        <div>
+
+            <a
+                href="index.html"
+                class="back-link"
+            >
+                ← Back to Menu
+            </a>
+
+            <h1>
+                Seller Dashboard
+            </h1>
+
+            <p>
+                Manage orders and monitor your sales.
+            </p>
+
+        </div>
+
+        <button
+            id="resetSales"
+            class="reset-button"
+        >
+            Reset Sales
+        </button>
+
+    </header>
+
+
+    <!-- STATISTICS -->
+
+    <section class="stats-grid">
+
+        <div class="stat-card">
+
+            <span>
+                TODAY'S SALES
+            </span>
+
+            <strong id="totalSales">
+                ₱0.00
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                PENDING ORDERS
+            </span>
+
+            <strong id="pendingOrders">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                COMPLETED ORDERS
+            </span>
+
+            <strong id="completedOrders">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                CANCELLED ORDERS
+            </span>
+
+            <strong id="cancelledOrders">
+                0
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- ORDER STATUS FILTER -->
+
+    <section class="report-card">
+
+        <div class="report-heading">
 
             <div>
 
-                <a
-                    href="index.html"
-                    class="back-link"
-                >
-                    ← Back to Menu
-                </a>
-
-                <h1>
-                    Sales Report
-                </h1>
-
-                <p>
-                    Monitor today's orders and sales.
-                </p>
-
-            </div>
-
-            <button
-                id="resetSales"
-                class="reset-button"
-            >
-                Reset Sales
-            </button>
-
-        </header>
-
-
-        <!-- STATISTICS -->
-
-        <section class="stats-grid">
-
-            <div class="stat-card">
-
-                <span>
-                    TODAY'S SALES
+                <span class="small-label">
+                    ORDER MANAGEMENT
                 </span>
 
-                <strong id="totalSales">
-                    ₱0.00
-                </strong>
+                <h2>
+                    Customer Orders
+                </h2>
 
             </div>
 
+            <select id="statusFilter">
 
-            <div class="stat-card">
+                <option value="all">
+                    All Orders
+                </option>
 
-                <span>
-                    TOTAL ORDERS
+                <option value="pending">
+                    Pending
+                </option>
+
+                <option value="completed">
+                    Completed
+                </option>
+
+                <option value="cancelled">
+                    Cancelled
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div
+            id="ordersContainer"
+            class="orders-container"
+        ></div>
+
+    </section>
+
+
+    <!-- PRODUCT SALES -->
+
+    <section class="report-card">
+
+        <div class="report-heading">
+
+            <div>
+
+                <span class="small-label">
+                    SALES BREAKDOWN
                 </span>
 
-                <strong id="totalOrders">
-                    0
-                </strong>
+                <h2>
+                    Items Sold
+                </h2>
 
             </div>
 
+            <select id="salesFilter">
 
-            <div class="stat-card">
+                <option value="today">
+                    Today
+                </option>
 
-                <span>
-                    ITEMS SOLD
-                </span>
+                <option value="all">
+                    All Time
+                </option>
 
-                <strong id="itemsSold">
-                    0
-                </strong>
+            </select>
 
-            </div>
+        </div>
 
 
-            <div class="stat-card">
+        <div class="table-wrapper">
 
-                <span>
-                    BEST SELLER
-                </span>
+            <table>
 
-                <strong id="bestSeller">
-                    —
-                </strong>
+                <thead>
 
-            </div>
+                    <tr>
 
-        </section>
+                        <th>
+                            PRODUCT
+                        </th>
 
+                        <th>
+                            QUANTITY SOLD
+                        </th>
 
-        <!-- PRODUCT SALES -->
+                        <th>
+                            REVENUE
+                        </th>
 
-        <section class="report-card">
+                    </tr>
 
-            <div class="report-heading">
+                </thead>
 
-                <div>
+                <tbody id="salesTable"></tbody>
 
-                    <span class="small-label">
-                        SALES BREAKDOWN
-                    </span>
+            </table>
 
-                    <h2>
-                        Items Sold
-                    </h2>
+        </div>
 
-                </div>
+    </section>
 
-                <select id="salesFilter">
 
-                    <option value="today">
-                        Today
-                    </option>
+</main>
 
-                    <option value="all">
-                        All Time
-                    </option>
 
-                </select>
-
-            </div>
-
-
-            <div class="table-wrapper">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                PRODUCT
-                            </th>
-
-                            <th>
-                                QUANTITY SOLD
-                            </th>
-
-                            <th>
-                                REVENUE
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody id="salesTable"></tbody>
-
-                </table>
-
-            </div>
-
-        </section>
-
-
-        <!-- TRANSACTIONS -->
-
-        <section class="report-card">
-
-            <div class="report-heading">
-
-                <div>
-
-                    <span class="small-label">
-                        ORDER HISTORY
-                    </span>
-
-                    <h2>
-                        Transactions
-                    </h2>
-
-                </div>
-
-            </div>
-
-
-            <div class="table-wrapper">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                ORDER #
-                            </th>
-
-                            <th>
-                                TIME
-                            </th>
-
-                            <th>
-                                ORDER
-                            </th>
-
-                            <th>
-                                TOTAL
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody
-                        id="transactionTable"
-                    ></tbody>
-
-                </table>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <script src="js/data.js"></script>
-    <script src="js/sales.js"></script>
+<script src="js/data.js"></script>
+<script src="js/sales.js"></script>
 
 </body>
 </html>
