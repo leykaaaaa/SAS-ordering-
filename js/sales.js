@@ -376,6 +376,16 @@ function createOrderCard(order) {
                     : ""
                 }
 
+
+                <button
+                    class="receipt-button"
+                    onclick="openReceipt(
+                        ${order.id}
+                    )"
+                >
+                    🧾 Receipt
+                </button>
+
             </div>
 
         </div>
