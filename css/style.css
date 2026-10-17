@@ -80,7 +80,7 @@ body {
     margin: auto;
 
     padding:
-        28px 28px 70px;
+        28px clamp(16px, 4vw, 28px) 70px;
 }
 
 
@@ -1057,12 +1057,14 @@ body {
     margin: auto;
 
     padding:
-        35px 28px 60px;
+        35px clamp(16px, 4vw, 28px) 60px;
 }
 
 
 .sales-header {
     display: flex;
+
+    flex-wrap: wrap;
 
     align-items: flex-start;
 
@@ -1102,7 +1104,7 @@ body {
         "Playfair Display",
         serif;
 
-    font-size: 35px;
+    font-size: clamp(28px, 8vw, 35px);
 
     color:
         var(--primary-dark);
@@ -1120,6 +1122,10 @@ body {
 
 
 .reset-button {
+    white-space: nowrap;
+
+    flex-shrink: 0;
+
     border:
         1px solid var(--border);
 
@@ -1159,9 +1165,9 @@ body {
     display: grid;
 
     grid-template-columns:
-        repeat(4, 1fr);
+        repeat(2, minmax(0, 1fr));
 
-    gap: 16px;
+    gap: 12px;
 
     margin-bottom: 22px;
 }
@@ -1170,6 +1176,8 @@ body {
 .stat-card {
     position: relative;
 
+    min-height: 116px;
+
     background:
         var(--surface);
 
@@ -1177,50 +1185,116 @@ body {
         1px solid var(--border);
 
     border-radius:
-        15px;
+        16px;
 
     padding:
-        22px;
+        20px 16px 16px;
 
     overflow: hidden;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
 }
 
 
-.stat-card::after {
+.stat-card:hover {
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+/* TOP COLOR STRIPE */
+
+.stat-card::before {
     content: "";
 
     position: absolute;
 
-    width: 60px;
-    height: 60px;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background:
+        var(--primary);
+}
+
+
+.stat-card:nth-child(2)::before {
+    background:
+        var(--accent);
+}
+
+
+.stat-card:nth-child(3)::before {
+    background:
+        #7ea88b;
+}
+
+
+.stat-card:nth-child(4)::before {
+    background:
+        var(--pink);
+}
+
+
+/* ICON BADGE */
+
+.stat-card::after {
+    content: "💰";
+
+    position: absolute;
+
+    top: 17px;
+    right: 14px;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
 
     border-radius: 50%;
 
-    right: -20px;
-    bottom: -20px;
-
     background:
         var(--primary-soft);
+
+    font-size: 16px;
 }
 
 
 .stat-card:nth-child(2)::after {
+    content: "⏳";
+
     background:
         var(--accent-soft);
 }
 
 
 .stat-card:nth-child(3)::after {
+    content: "✅";
+
+    background:
+        var(--primary-soft);
+}
+
+
+.stat-card:nth-child(4)::after {
+    content: "🚫";
+
     background:
         var(--pink-soft);
 }
 
 
-.stat-card:nth-child(4)::after {
-    background:
-        var(--primary-soft);
-}
-
+/* LABEL + VALUE */
 
 .stat-card span {
     display: block;
@@ -1229,6 +1303,10 @@ body {
 
     z-index: 1;
 
+    min-height: 27px;
+
+    padding-right: 40px;
+
     color:
         var(--muted);
 
@@ -1236,7 +1314,9 @@ body {
 
     font-weight: 700;
 
-    letter-spacing: 1.5px;
+    letter-spacing: 1.3px;
+
+    line-height: 1.5;
 }
 
 
@@ -1250,9 +1330,44 @@ body {
     color:
         var(--primary-dark);
 
-    font-size: 23px;
+    font-size:
+        clamp(19px, 5.4vw, 26px);
 
-    margin-top: 9px;
+    line-height: 1.1;
+
+    margin-top: 12px;
+
+    word-break: break-word;
+}
+
+
+@media (min-width: 760px) {
+
+    .stats-grid {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+
+        gap: 16px;
+    }
+
+
+    .stat-card {
+        min-height: 126px;
+
+        padding:
+            22px 22px 20px;
+    }
+
+
+    .stat-card::after {
+        right: 18px;
+    }
+
+
+    .stat-card strong {
+        font-size: 26px;
+    }
+
 }
 
 
@@ -1271,7 +1386,7 @@ body {
         15px;
 
     padding:
-        25px;
+        clamp(16px, 4vw, 25px);
 
     margin-bottom:
         20px;
@@ -1280,6 +1395,8 @@ body {
 
 .report-heading {
     display: flex;
+
+    flex-wrap: wrap;
 
     align-items: center;
 
@@ -1424,10 +1541,15 @@ td small {
 }
 
 
-/* ORDER CARD */
+/* ORDER CARD (PHONE FIRST) */
 
 .order-card {
     position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr);
 
     background:
         var(--surface);
@@ -1439,16 +1561,7 @@ td small {
         16px;
 
     padding:
-        18px 20px 18px 26px;
-
-    display: grid;
-
-    grid-template-columns:
-        170px 1fr auto;
-
-    align-items: center;
-
-    column-gap: 24px;
+        16px 16px 16px 20px;
 
     overflow: hidden;
 
@@ -1483,136 +1596,4 @@ td small {
 
 .order-card:has(.status-completed)::before {
     background:
-        var(--primary);
-}
-
-
-.order-card:has(.status-cancelled)::before {
-    background:
-        var(--pink);
-}
-
-
-.order-card:hover {
-    transform:
-        translateY(-3px);
-
-    border-color:
-        #ddd4c6;
-
-    box-shadow:
-        var(--shadow);
-}
-
-
-/* CARD HEADER */
-
-.order-card-header {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    justify-content: center;
-
-    align-self: stretch;
-
-    gap: 12px;
-
-    padding-right: 22px;
-
-    border-right:
-        1px dashed var(--border);
-}
-
-
-.order-number {
-    display: block;
-
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size: 23px;
-
-    font-weight: 700;
-
-    line-height: 1;
-
-    color:
-        var(--primary-dark);
-}
-
-
-.order-time {
-    display: block;
-
-    color:
-        var(--muted);
-
-    font-size: 11px;
-
-    margin-top: 7px;
-}
-
-
-/* STATUS BADGE */
-
-.status-badge {
-    display: inline-block;
-
-    flex-shrink: 0;
-
-    padding:
-        6px 12px;
-
-    border-radius: 30px;
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: .8px;
-
-    text-transform: uppercase;
-}
-
-
-.status-pending {
-    background:
-        var(--accent-soft);
-
-    color:
-        #b4742c;
-}
-
-
-.status-completed {
-    background:
-        var(--primary-soft);
-
-    color:
-        var(--primary);
-}
-
-
-.status-cancelled {
-    background:
-        var(--pink-soft);
-
-    color:
-        #9a6964;
-}
-
-
-/* ORDER ITEMS */
-
-.order-items {
-    padding:
-        4px 0 2px;
-}
-
-
-.order-item {
- 
+        var(-
