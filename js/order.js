@@ -411,30 +411,34 @@ document
                 getNextOrderNumber();
 
 
-            const newOrder = {
+        const newOrder = {
 
-                id: orderId,
+    id: orderId,
 
-                date:
-                    new Date().toISOString(),
+    date:
+        new Date().toISOString(),
 
-                items:
-                    cart.map(item => ({
+    status: "pending",
 
-                        id: item.id,
+    items:
+        cart.map(item => ({
 
-                        name: item.name,
+            id: item.id,
 
-                        price: item.price,
+            name: item.name,
 
-                        quantity:
-                            item.quantity
+            price: item.price,
 
-                    })),
+            quantity:
+                item.quantity
 
-                total: total
+        })),
 
-            };
+    total: total
+
+};
+                        
+            
 
 
             orders.push(newOrder);
