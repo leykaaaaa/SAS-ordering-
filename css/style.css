@@ -1418,12 +1418,9 @@ td small {
 .orders-container {
     display: grid;
 
-    grid-template-columns:
-        repeat(2, 1fr);
+    grid-template-columns: 1fr;
 
-    gap: 16px;
-
-    align-items: start;
+    gap: 14px;
 }
 
 
@@ -1442,7 +1439,16 @@ td small {
         16px;
 
     padding:
-        20px 20px 18px 24px;
+        18px 20px 18px 26px;
+
+    display: grid;
+
+    grid-template-columns:
+        170px 1fr auto;
+
+    align-items: center;
+
+    column-gap: 24px;
 
     overflow: hidden;
 
@@ -1504,17 +1510,19 @@ td small {
 .order-card-header {
     display: flex;
 
+    flex-direction: column;
+
     align-items: flex-start;
 
-    justify-content:
-        space-between;
+    justify-content: center;
+
+    align-self: stretch;
 
     gap: 12px;
 
-    padding-bottom:
-        14px;
+    padding-right: 22px;
 
-    border-bottom:
+    border-right:
         1px dashed var(--border);
 }
 
@@ -1607,13 +1615,4 @@ td small {
 
 
 .order-item {
-    display: flex;
-
-    align-items: center;
-
-    justify-content:
-        space-between;
-
-    gap: 14px;
-
  
