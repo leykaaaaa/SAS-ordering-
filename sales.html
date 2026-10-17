@@ -13,7 +13,7 @@
 
     <link
         rel="stylesheet"
-        href="css/style.css"
+        href="css/style.css?v=3"
     >
 </head>
 
@@ -230,8 +230,76 @@
 </main>
 
 
+<!-- RECEIPT PREVIEW -->
+
+<div
+    id="receiptModal"
+    class="modal"
+>
+
+    <div class="receipt-box">
+
+        <div class="receipt-toolbar">
+
+            <div>
+
+                <span class="small-label">
+                    ORDER RECEIPT
+                </span>
+
+                <h2 id="receiptTitle">
+                    #001
+                </h2>
+
+            </div>
+
+            <button
+                id="closeReceipt"
+                class="receipt-close"
+                aria-label="Close receipt"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <div class="receipt-preview">
+
+            <img
+                id="receiptImage"
+                alt="Order receipt"
+            >
+
+        </div>
+
+
+        <div class="receipt-actions">
+
+            <button
+                id="downloadReceipt"
+                class="submit-button"
+            >
+                ⬇ DOWNLOAD
+            </button>
+
+            <button
+                id="printReceipt"
+                class="receipt-secondary"
+            >
+                🖨 PRINT
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <script src="js/data.js"></script>
+<script src="js/receipt.js"></script>
 <script src="js/sales.js"></script>
 
 </body>
-</html>
+    </html>
