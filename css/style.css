@@ -1615,4 +1615,450 @@ td small {
         align-items:
             flex-start;
 
-    
+
+       /* =========================================
+   SELLER ORDER MANAGEMENT
+========================================= */
+
+.orders-container {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+
+.order-card {
+    background:
+        #fcfbf8;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        14px;
+
+    overflow: hidden;
+
+    transition:
+        .2s ease;
+}
+
+
+.order-card:hover {
+    box-shadow:
+        0 8px 25px
+        rgba(43,39,29,.06);
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* ORDER HEADER */
+
+.order-card-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-between;
+
+    gap: 15px;
+
+    padding:
+        17px 20px;
+
+    background:
+        #f8f6f1;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+
+.order-number {
+    display: inline-block;
+
+    color:
+        var(--primary-dark);
+
+    font-weight: 700;
+
+    font-size: 14px;
+}
+
+
+.order-time {
+    margin-left: 9px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   STATUS BADGES
+========================================= */
+
+.status-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 82px;
+
+    padding:
+        6px 11px;
+
+    border-radius:
+        30px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .7px;
+
+    text-transform:
+        uppercase;
+}
+
+
+/* PENDING */
+
+.status-pending {
+    background:
+        #fff0dc;
+
+    color:
+        #a86c2e;
+}
+
+
+/* COMPLETED */
+
+.status-completed {
+    background:
+        #e4f0e7;
+
+    color:
+        #3d7350;
+}
+
+
+/* CANCELLED */
+
+.status-cancelled {
+    background:
+        #f8e5e3;
+
+    color:
+        #a45d58;
+}
+
+
+/* =========================================
+   ORDER ITEMS
+========================================= */
+
+.order-items {
+    padding:
+        5px 20px;
+}
+
+
+.order-item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-between;
+
+    gap: 20px;
+
+    padding:
+        13px 0;
+
+    border-bottom:
+        1px dashed #e7e1d8;
+}
+
+
+.order-item:last-child {
+    border-bottom:
+        none;
+}
+
+
+.order-item strong {
+    display: block;
+
+    color:
+        var(--text);
+
+    font-size: 13px;
+}
+
+
+.order-item small {
+    display: block;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 3px;
+}
+
+
+/* =========================================
+   ORDER FOOTER
+========================================= */
+
+.order-card-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-between;
+
+    gap: 20px;
+
+    padding:
+        17px 20px;
+
+    border-top:
+        1px solid var(--border);
+
+    background:
+        white;
+}
+
+
+.order-card-footer > div:first-child span {
+    display: block;
+
+    color:
+        var(--muted);
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+
+    font-weight: 700;
+
+    margin-bottom: 4px;
+}
+
+
+.order-card-footer > div:first-child strong {
+    color:
+        var(--primary-dark);
+
+    font-size: 19px;
+}
+
+
+/* =========================================
+   ORDER ACTIONS
+========================================= */
+
+.order-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+.order-actions button {
+    border: none;
+
+    padding:
+        9px 13px;
+
+    border-radius: 8px;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        .2s ease;
+}
+
+
+/* COMPLETE */
+
+.complete-button {
+    background:
+        var(--primary);
+
+    color: white;
+}
+
+
+.complete-button:hover {
+    background:
+        var(--primary-dark);
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* CANCEL */
+
+.cancel-button {
+    background:
+        var(--pink-soft);
+
+    color:
+        #9b625d;
+}
+
+
+.cancel-button:hover {
+    background:
+        var(--pink);
+
+    color: white;
+}
+
+
+/* REOPEN */
+
+.reopen-button {
+    background:
+        var(--surface-soft);
+
+    color:
+        var(--muted);
+
+    border:
+        1px solid var(--border) !important;
+}
+
+
+.reopen-button:hover {
+    background:
+        var(--primary-soft);
+
+    color:
+        var(--primary);
+}
+
+
+/* =========================================
+   NO ORDERS
+========================================= */
+
+.no-orders {
+    text-align: center;
+
+    padding:
+        50px 20px;
+
+    color:
+        var(--muted);
+}
+
+
+.no-orders-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin:
+        0 auto 12px;
+
+    background:
+        var(--surface-soft);
+
+    border-radius: 50%;
+
+    font-size: 22px;
+}
+
+
+.no-orders strong {
+    display: block;
+
+    color:
+        var(--text);
+
+    font-size: 14px;
+
+    margin-bottom: 4px;
+}
+
+
+.no-orders p {
+    font-size: 11px;
+}
+
+
+/* =========================================
+   SELLER MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .order-card-header {
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+    }
+
+
+    .order-time {
+        display: block;
+
+        margin:
+            5px 0 0;
+    }
+
+
+    .order-card-footer {
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+    }
+
+
+    .order-actions {
+        width: 100%;
+    }
+
+
+    .order-actions button {
+        flex: 1;
+    }
+
+   }
