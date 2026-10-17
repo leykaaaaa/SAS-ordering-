@@ -1412,207 +1412,208 @@ td small {
 
 
 /* =========================================
-   SCROLLBAR
+   ORDER MANAGEMENT
 ========================================= */
 
-::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
+.orders-container {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 16px;
+
+    align-items: start;
 }
 
 
-::-webkit-scrollbar-track {
-    background:
-        var(--bg);
-}
+/* ORDER CARD */
 
+.order-card {
+    position: relative;
 
-::-webkit-scrollbar-thumb {
     background:
-        #d2ccc1;
+        var(--surface);
+
+    border:
+        1px solid var(--border);
 
     border-radius:
-        20px;
+        16px;
+
+    padding:
+        20px 20px 18px 24px;
+
+    overflow: hidden;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
 }
 
 
-::-webkit-scrollbar-thumb:hover {
+.order-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 5px;
+    height: 100%;
+
     background:
-        #b5aea2;
+        var(--border);
 }
 
 
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 850px) {
-
-    .product-grid {
-        grid-template-columns: 1fr;
-    }
-
-
-    .stats-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
+.order-card:has(.status-pending)::before {
+    background:
+        var(--accent);
 }
 
 
-@media (max-width: 600px) {
-
-    .order-page,
-    .sales-page {
-        padding:
-            18px 16px 45px;
-    }
-
-
-    .store-header {
-        padding-bottom:
-            18px;
-    }
-
-
-    .brand h1 {
-        font-size: 25px;
-    }
-
-
-    .brand::before {
-        width: 42px;
-        height: 42px;
-
-        font-size: 19px;
-    }
-
-
-    .welcome {
-        padding:
-            38px 0 32px;
-    }
-
-
-    .welcome::after {
-        font-size: 45px;
-
-        right: 2px;
-
-        top: 25px;
-    }
-
-
-    .welcome h2 {
-        font-size: 32px;
-
-        max-width: 90%;
-    }
-
-
-    .section-heading h2 {
-        font-size: 22px;
-    }
-
-
-    .product-card {
-        min-height: auto;
-
-        padding: 18px;
-    }
-
-
-    .product-details h3 {
-        font-size: 21px;
-    }
-
-
-    .product-details p {
-        font-size: 11px;
-    }
-
-
-    .quantity-box {
-        gap: 5px;
-    }
-
-
-    .quantity-box button {
-        width: 31px;
-        height: 31px;
-    }
-
-
-    .order-summary {
-        padding: 20px;
-
-        border-radius: 17px;
-    }
-
-
-    .total-line strong {
-        font-size: 23px;
-    }
-
-
-    .sales-header {
-        flex-direction:
-            column;
-    }
-
-
-    .sales-header h1 {
-        font-size: 30px;
-    }
-
-
-    .stats-grid {
-        grid-template-columns:
-            1fr 1fr;
-
-        gap: 10px;
-    }
-
-
-    .stat-card {
-        padding: 17px;
-    }
-
-
-    .stat-card strong {
-        font-size: 18px;
-
-        word-break: break-word;
-    }
-
-
-    .report-card {
-        padding: 18px;
-    }
-
-
-    .report-heading {
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
-    }
-
+.order-card:has(.status-completed)::before {
+    background:
+        var(--primary);
 }
 
 
-@media (max-width: 390px) {
-
-    .stats-grid {
-        grid-template-columns:
-            1fr;
-    }
+.order-card:has(.status-cancelled)::before {
+    background:
+        var(--pink);
+}
 
 
-    .product-card {
-        align-items:
-            flex-start;
+.order-card:hover {
+    transform:
+        translateY(-3px);
 
-   
+    border-color:
+        #ddd4c6;
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+/* CARD HEADER */
+
+.order-card-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content:
+        space-between;
+
+    gap: 12px;
+
+    padding-bottom:
+        14px;
+
+    border-bottom:
+        1px dashed var(--border);
+}
+
+
+.order-number {
+    display: block;
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 23px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    color:
+        var(--primary-dark);
+}
+
+
+.order-time {
+    display: block;
+
+    color:
+        var(--muted);
+
+    font-size: 11px;
+
+    margin-top: 7px;
+}
+
+
+/* STATUS BADGE */
+
+.status-badge {
+    display: inline-block;
+
+    flex-shrink: 0;
+
+    padding:
+        6px 12px;
+
+    border-radius: 30px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .8px;
+
+    text-transform: uppercase;
+}
+
+
+.status-pending {
+    background:
+        var(--accent-soft);
+
+    color:
+        #b4742c;
+}
+
+
+.status-completed {
+    background:
+        var(--primary-soft);
+
+    color:
+        var(--primary);
+}
+
+
+.status-cancelled {
+    background:
+        var(--pink-soft);
+
+    color:
+        #9a6964;
+}
+
+
+/* ORDER ITEMS */
+
+.order-items {
+    padding:
+        4px 0 2px;
+}
+
+
+.order-item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-between;
+
+    gap: 14px;
+
+ 
