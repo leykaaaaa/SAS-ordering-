@@ -1,54 +1,446 @@
 const totalSales =
-    document.getElementById(
-        "totalSales"
-    );
+    document.getElementById("totalSales");
 
-const totalOrders =
-    document.getElementById(
-        "totalOrders"
-    );
+const pendingOrders =
+    document.getElementById("pendingOrders");
 
-const itemsSold =
-    document.getElementById(
-        "itemsSold"
-    );
+const completedOrders =
+    document.getElementById("completedOrders");
 
-const bestSeller =
-    document.getElementById(
-        "bestSeller"
-    );
+const cancelledOrders =
+    document.getElementById("cancelledOrders");
+
+const ordersContainer =
+    document.getElementById("ordersContainer");
 
 const salesTable =
-    document.getElementById(
-        "salesTable"
-    );
-
-const transactionTable =
-    document.getElementById(
-        "transactionTable"
-    );
+    document.getElementById("salesTable");
 
 const salesFilter =
-    document.getElementById(
-        "salesFilter"
-    );
+    document.getElementById("salesFilter");
+
+const statusFilter =
+    document.getElementById("statusFilter");
 
 
-/* =========================
-   LOAD SALES
-========================= */
+/* =========================================
+   LOAD SELLER DASHBOARD
+========================================= */
+
+function loadDashboard() {
+
+    const orders = getOrders();
+
+    updateStatistics(orders);
+
+    displayOrders(orders);
+
+    loadSales();
+
+}
+
+
+/* =========================================
+   STATISTICS
+========================================= */
+
+function updateStatistics(orders) {
+
+    let sales = 0;
+
+    let pending = 0;
+
+    let completed = 0;
+
+    let cancelled = 0;
+
+
+    orders.forEach(order => {
+
+        /*
+         * Only completed orders
+         * count as actual sales.
+         */
+
+        if (order.status === "completed") {
+
+            sales += order.total;
+
+        }
+
+
+        if (order.status === "pending") {
+
+            pending++;
+
+        }
+
+
+        if (order.status === "completed") {
+
+            completed++;
+
+        }
+
+
+        if (order.status === "cancelled") {
+
+            cancelled++;
+
+        }
+
+    });
+
+
+    totalSales.textContent =
+        formatPeso(sales);
+
+
+    pendingOrders.textContent =
+        pending;
+
+
+    completedOrders.textContent =
+        completed;
+
+
+    cancelledOrders.textContent =
+        cancelled;
+
+}
+
+
+/* =========================================
+   DISPLAY ORDERS
+========================================= */
+
+function displayOrders(orders) {
+
+    ordersContainer.innerHTML = "";
+
+
+    let filteredOrders = orders;
+
+
+    /* FILTER BY STATUS */
+
+    if (statusFilter.value !== "all") {
+
+        filteredOrders =
+            orders.filter(
+                order =>
+                    order.status ===
+                    statusFilter.value
+            );
+
+    }
+
+
+    /* NO ORDERS */
+
+    if (filteredOrders.length === 0) {
+
+        ordersContainer.innerHTML = `
+
+            <div class="no-orders">
+
+                <div class="no-orders-icon">
+                    📋
+                </div>
+
+                <strong>
+                    No orders found
+                </strong>
+
+                <p>
+                    There are no orders
+                    under this status.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+     * Newest orders first
+     */
+
+    filteredOrders
+        .slice()
+        .reverse()
+        .forEach(order => {
+
+            createOrderCard(order);
+
+        });
+
+}
+
+
+/* =========================================
+   CREATE ORDER CARD
+========================================= */
+
+function createOrderCard(order) {
+
+    const card =
+        document.createElement("div");
+
+
+    card.className =
+        "order-card";
+
+
+    const date =
+        new Date(order.date);
+
+
+    /*
+     * ORDER ITEMS
+     */
+
+    let itemsHTML = "";
+
+
+    order.items.forEach(item => {
+
+        const subtotal =
+            item.price *
+            item.quantity;
+
+
+        itemsHTML += `
+
+            <div class="order-item">
+
+                <div>
+
+                    <strong>
+                        ${item.name}
+                    </strong>
+
+                    <small>
+                        ${item.quantity}
+                        ×
+                        ${formatPeso(item.price)}
+                    </small>
+
+                </div>
+
+                <strong>
+                    ${formatPeso(subtotal)}
+                </strong>
+
+            </div>
+
+        `;
+
+    });
+
+
+    /*
+     * STATUS
+     */
+
+    const statusText =
+        order.status
+            .charAt(0)
+            .toUpperCase() +
+        order.status.slice(1);
+
+
+    /*
+     * CARD
+     */
+
+    card.innerHTML = `
+
+        <div class="order-card-header">
+
+            <div>
+
+                <span class="order-number">
+
+                    #
+                    ${String(order.id)
+                        .padStart(3, "0")}
+
+                </span>
+
+                <span class="order-time">
+
+                    ${date.toLocaleDateString(
+                        "en-PH"
+                    )}
+
+                    ·
+
+                    ${date.toLocaleTimeString(
+                        "en-PH",
+                        {
+                            hour: "2-digit",
+                            minute: "2-digit"
+                        }
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <span
+                class="status-badge
+                status-${order.status}"
+            >
+
+                ${statusText}
+
+            </span>
+
+        </div>
+
+
+        <div class="order-items">
+
+            ${itemsHTML}
+
+        </div>
+
+
+        <div class="order-card-footer">
+
+            <div>
+
+                <span>
+                    TOTAL
+                </span>
+
+                <strong>
+                    ${formatPeso(order.total)}
+                </strong>
+
+            </div>
+
+
+            <div class="order-actions">
+
+                ${
+                    order.status === "pending"
+                    ? `
+
+                        <button
+                            class="complete-button"
+                            onclick="updateOrderStatus(
+                                ${order.id},
+                                'completed'
+                            )"
+                        >
+                            ✓ Complete
+                        </button>
+
+                        <button
+                            class="cancel-button"
+                            onclick="updateOrderStatus(
+                                ${order.id},
+                                'cancelled'
+                            )"
+                        >
+                            Cancel
+                        </button>
+
+                    `
+                    : ""
+                }
+
+
+                ${
+                    order.status !== "pending"
+                    ? `
+
+                        <button
+                            class="reopen-button"
+                            onclick="updateOrderStatus(
+                                ${order.id},
+                                'pending'
+                            )"
+                        >
+                            Move to Pending
+                        </button>
+
+                    `
+                    : ""
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    ordersContainer.appendChild(card);
+
+}
+
+
+/* =========================================
+   UPDATE ORDER STATUS
+========================================= */
+
+function updateOrderStatus(
+    orderId,
+    newStatus
+) {
+
+    const orders = getOrders();
+
+
+    const order =
+        orders.find(
+            order =>
+                order.id === orderId
+        );
+
+
+    if (!order) {
+
+        return;
+
+    }
+
+
+    order.status =
+        newStatus;
+
+
+    saveOrders(orders);
+
+
+    loadDashboard();
+
+}
+
+
+/* =========================================
+   SALES BREAKDOWN
+========================================= */
 
 function loadSales() {
 
-    const orders =
-        getOrders();
+    const orders = getOrders();
 
 
-    let filteredOrders =
-        orders;
+    let filteredOrders = orders;
 
 
-    /* TODAY */
+    /*
+     * TODAY FILTER
+     */
 
     if (
         salesFilter.value ===
@@ -73,26 +465,25 @@ function loadSales() {
     }
 
 
-    let revenue = 0;
+    /*
+     * ONLY COMPLETED ORDERS
+     * ARE INCLUDED IN SALES.
+     */
 
-    let quantitySold = 0;
+    filteredOrders =
+        filteredOrders.filter(
+            order =>
+                order.status ===
+                "completed"
+        );
 
 
     const productSales = {};
 
 
-    /* CALCULATE */
-
     filteredOrders.forEach(order => {
 
-        revenue += order.total;
-
-
         order.items.forEach(item => {
-
-            quantitySold +=
-                item.quantity;
-
 
             if (
                 !productSales[item.name]
@@ -124,49 +515,6 @@ function loadSales() {
     });
 
 
-    /* STATISTICS */
-
-    totalSales.textContent =
-        formatPeso(revenue);
-
-
-    totalOrders.textContent =
-        filteredOrders.length;
-
-
-    itemsSold.textContent =
-        quantitySold;
-
-
-    /* BEST SELLER */
-
-    let topProduct = null;
-
-
-    Object.keys(productSales)
-        .forEach(name => {
-
-            if (
-                !topProduct ||
-                productSales[name]
-                    .quantity >
-                productSales[topProduct]
-                    .quantity
-            ) {
-
-                topProduct = name;
-
-            }
-
-        });
-
-
-    bestSeller.textContent =
-        topProduct || "—";
-
-
-    /* PRODUCT TABLE */
-
     salesTable.innerHTML = "";
 
 
@@ -177,6 +525,30 @@ function loadSales() {
                     b[1].quantity -
                     a[1].quantity
             );
+
+
+    if (
+        sortedProducts.length === 0
+    ) {
+
+        salesTable.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="3"
+                    class="no-data"
+                >
+                    No completed sales yet.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
 
 
     sortedProducts.forEach(
@@ -191,9 +563,11 @@ function loadSales() {
             row.innerHTML = `
 
                 <td>
+
                     <strong>
                         ${name}
                     </strong>
+
                 </td>
 
                 <td>
@@ -201,9 +575,13 @@ function loadSales() {
                 </td>
 
                 <td>
-                    ${formatPeso(
-                        data.revenue
-                    )}
+
+                    <strong>
+                        ${formatPeso(
+                            data.revenue
+                        )}
+                    </strong>
+
                 </td>
 
             `;
@@ -214,146 +592,38 @@ function loadSales() {
         }
     );
 
-
-    loadTransactions(
-        filteredOrders
-    );
-
 }
 
 
-/* =========================
-   TRANSACTIONS
-========================= */
+/* =========================================
+   FILTER EVENTS
+========================================= */
 
-function loadTransactions(orders) {
+statusFilter.addEventListener(
+    "change",
+    function () {
 
-    transactionTable.innerHTML = "";
-
-
-    if (orders.length === 0) {
-
-        transactionTable.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="4"
-                    class="no-data"
-                >
-                    No orders yet.
-                </td>
-
-            </tr>
-
-        `;
-
-        return;
+        displayOrders(
+            getOrders()
+        );
 
     }
-
-
-    orders
-        .slice()
-        .reverse()
-        .forEach(order => {
-
-            const row =
-                document.createElement(
-                    "tr"
-                );
-
-
-            const date =
-                new Date(order.date);
-
-
-            const orderItems =
-                order.items
-                    .map(item => {
-
-                        return `
-                            ${item.name}
-                            × ${item.quantity}
-                        `;
-
-                    })
-                    .join(", ");
-
-
-            row.innerHTML = `
-
-                <td>
-
-                    <strong>
-                        #${String(order.id)
-                            .padStart(3, "0")}
-                    </strong>
-
-                </td>
-
-
-                <td>
-
-                    ${date.toLocaleDateString(
-                        "en-PH"
-                    )}
-
-                    <br>
-
-                    <small>
-                        ${date.toLocaleTimeString(
-                            "en-PH",
-                            {
-                                hour: "2-digit",
-                                minute: "2-digit"
-                            }
-                        )}
-                    </small>
-
-                </td>
-
-
-                <td>
-                    ${orderItems}
-                </td>
-
-
-                <td>
-
-                    <strong>
-                        ${formatPeso(
-                            order.total
-                        )}
-                    </strong>
-
-                </td>
-
-            `;
-
-
-            transactionTable.appendChild(
-                row
-            );
-
-        });
-
-}
-
-
-/* =========================
-   FILTER
-========================= */
-
-salesFilter.addEventListener(
-    "change",
-    loadSales
 );
 
 
-/* =========================
+salesFilter.addEventListener(
+    "change",
+    function () {
+
+        loadSales();
+
+    }
+);
+
+
+/* =========================================
    RESET SALES
-========================= */
+========================================= */
 
 document
     .getElementById("resetSales")
@@ -363,12 +633,14 @@ document
 
             const confirmed =
                 confirm(
-                    "Are you sure you want to delete ALL sales records?"
+                    "Are you sure you want to delete all orders and sales records?"
                 );
 
 
             if (!confirmed) {
+
                 return;
+
             }
 
 
@@ -377,17 +649,19 @@ document
             );
 
 
-            loadSales();
+            loadDashboard();
 
 
             alert(
-                "Sales records have been reset."
+                "All sales records have been reset."
             );
 
         }
     );
 
 
-/* INITIALIZE */
+/* =========================================
+   INITIALIZE
+========================================= */
 
-loadSales();
+loadDashboard();
