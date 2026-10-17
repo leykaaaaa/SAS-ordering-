@@ -255,6 +255,64 @@ function createOrderCard(order) {
 
 
     /*
+     * ACTION BUTTONS
+     *
+     * pending   -> Complete, Cancel, Receipt
+     * completed -> Receipt only
+     * cancelled -> no buttons
+     */
+
+    let actionsHTML = "";
+
+
+    if (order.status === "pending") {
+
+        actionsHTML += `
+
+            <button
+                class="complete-button"
+                onclick="updateOrderStatus(
+                    ${order.id},
+                    'completed'
+                )"
+            >
+                ✓ Complete
+            </button>
+
+            <button
+                class="cancel-button"
+                onclick="updateOrderStatus(
+                    ${order.id},
+                    'cancelled'
+                )"
+            >
+                Cancel
+            </button>
+
+        `;
+
+    }
+
+
+    if (order.status !== "cancelled") {
+
+        actionsHTML += `
+
+            <button
+                class="receipt-button"
+                onclick="openReceipt(
+                    ${order.id}
+                )"
+            >
+                🧾 Receipt
+            </button>
+
+        `;
+
+    }
+
+
+    /*
      * CARD
      */
 
@@ -327,66 +385,15 @@ function createOrderCard(order) {
             </div>
 
 
-            <div class="order-actions">
-
-                ${
-                    order.status === "pending"
-                    ? `
-
-                        <button
-                            class="complete-button"
-                            onclick="updateOrderStatus(
-                                ${order.id},
-                                'completed'
-                            )"
-                        >
-                            ✓ Complete
-                        </button>
-
-                        <button
-                            class="cancel-button"
-                            onclick="updateOrderStatus(
-                                ${order.id},
-                                'cancelled'
-                            )"
-                        >
-                            Cancel
-                        </button>
-
-                    `
-                    : ""
-                }
-
-
-                ${
-                    order.status !== "pending"
-                    ? `
-
-                        <button
-                            class="reopen-button"
-                            onclick="updateOrderStatus(
-                                ${order.id},
-                                'pending'
-                            )"
-                        >
-                            Move to Pending
-                        </button>
-
-                    `
-                    : ""
-                }
-
-
-                <button
-                    class="receipt-button"
-                    onclick="openReceipt(
-                        ${order.id}
-                    )"
-                >
-                    🧾 Receipt
-                </button>
-
-            </div>
+            ${
+                actionsHTML
+                ? `
+                    <div class="order-actions">
+                        ${actionsHTML}
+                    </div>
+                `
+                : ""
+            }
 
         </div>
 
