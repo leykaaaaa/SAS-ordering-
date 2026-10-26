@@ -1,28 +1,12 @@
+
 let cart = [];
 
+const silogProducts = document.getElementById("silogProducts");
+const sandwichProducts = document.getElementById("sandwichProducts");
+const drinkProducts = document.getElementById("drinkProducts");
 
-const silogProducts =
-    document.getElementById(
-        "silogProducts"
-    );
-
-
-const drinkProducts =
-    document.getElementById(
-        "drinkProducts"
-    );
-
-
-const cartItems =
-    document.getElementById(
-        "cartItems"
-    );
-
-
-const totalPrice =
-    document.getElementById(
-        "totalPrice"
-    );
+const cartItems = document.getElementById("cartItems");
+const totalPrice = document.getElementById("totalPrice");
 
 
 /* =========================
@@ -32,33 +16,24 @@ const totalPrice =
 function displayProducts() {
 
     silogProducts.innerHTML = "";
+    sandwichProducts.innerHTML = "";
     drinkProducts.innerHTML = "";
-
 
     products.forEach(product => {
 
-        const card =
-            document.createElement("div");
-
-        card.className =
-            "product-card";
-
+        const card = document.createElement("div");
+        card.className = "product-card";
 
         card.innerHTML = `
-
             <div class="product-details">
 
                 <span class="product-category">
                     ${product.category}
                 </span>
 
-                <h3>
-                    ${product.name}
-                </h3>
+                <h3>${product.name}</h3>
 
-                <p>
-                    ${product.description}
-                </p>
+                <p>${product.description}</p>
 
                 <strong class="product-price">
                     ${formatPeso(product.price)}
@@ -66,40 +41,30 @@ function displayProducts() {
 
             </div>
 
-
             <div class="quantity-box">
 
-                <button
-                    onclick="decreaseItem(${product.id})"
-                >
+                <button onclick="decreaseItem(${product.id})">
                     −
                 </button>
 
-                <span
-                    id="quantity-${product.id}"
-                >
-                    0
-                </span>
+                <span id="quantity-${product.id}">0</span>
 
-                <button
-                    onclick="increaseItem(${product.id})"
-                >
+                <button onclick="increaseItem(${product.id})">
                     +
                 </button>
 
             </div>
-
         `;
 
-
-        if (
-            product.category ===
-            "Silog Meal"
-        ) {
+        if (product.category === "Silog Meal") {
 
             silogProducts.appendChild(card);
 
-        } else {
+        } else if (product.category === "Hotdog Sandwich") {
+
+            sandwichProducts.appendChild(card);
+
+        } else if (product.category === "Drink") {
 
             drinkProducts.appendChild(card);
 
@@ -116,22 +81,11 @@ function displayProducts() {
 
 function increaseItem(productId) {
 
-    const product =
-        products.find(
-            item => item.id === productId
-        );
+    const product = products.find(item => item.id === productId);
 
+    if (!product) return;
 
-    if (!product) {
-        return;
-    }
-
-
-    const existing =
-        cart.find(
-            item => item.id === productId
-        );
-
+    const existing = cart.find(item => item.id === productId);
 
     if (existing) {
 
@@ -140,22 +94,15 @@ function increaseItem(productId) {
     } else {
 
         cart.push({
-
             id: product.id,
-
             name: product.name,
-
             price: product.price,
-
             quantity: 1
-
         });
 
     }
 
-
     updateQuantityDisplay();
-
     displayCart();
 
 }
@@ -167,33 +114,19 @@ function increaseItem(productId) {
 
 function decreaseItem(productId) {
 
-    const existing =
-        cart.find(
-            item => item.id === productId
-        );
+    const existing = cart.find(item => item.id === productId);
 
-
-    if (!existing) {
-        return;
-    }
-
+    if (!existing) return;
 
     existing.quantity--;
 
-
     if (existing.quantity <= 0) {
 
-        cart =
-            cart.filter(
-                item =>
-                    item.id !== productId
-            );
+        cart = cart.filter(item => item.id !== productId);
 
     }
 
-
     updateQuantityDisplay();
-
     displayCart();
 
 }
@@ -207,28 +140,15 @@ function updateQuantityDisplay() {
 
     products.forEach(product => {
 
-        const item =
-            cart.find(
-                cartItem =>
-                    cartItem.id === product.id
-            );
+        const item = cart.find(cartItem => cartItem.id === product.id);
+        const quantity = item ? item.quantity : 0;
 
-
-        const quantity =
-            item ? item.quantity : 0;
-
-
-        const element =
-            document.getElementById(
-                `quantity-${product.id}`
-            );
-
+        const element = document.getElementById(
+            `quantity-${product.id}`
+        );
 
         if (element) {
-
-            element.textContent =
-                quantity;
-
+            element.textContent = quantity;
         }
 
     });
@@ -245,90 +165,53 @@ function displayCart() {
     if (cart.length === 0) {
 
         cartItems.innerHTML = `
-
             <div class="empty-cart">
 
-                <div class="empty-icon">
-                    🛒
-                </div>
+                <div class="empty-icon"></div>
 
-                <p>
-                    Your order is empty.
-                </p>
+                <p>Your order is empty.</p>
 
                 <small>
                     Select an item above to get started.
                 </small>
 
             </div>
-
         `;
 
-
-        totalPrice.textContent =
-            "₱0.00";
-
-
+        totalPrice.textContent = "₱0.00";
         return;
 
     }
 
-
     cartItems.innerHTML = "";
-
 
     let total = 0;
 
-
     cart.forEach(item => {
 
-        const subtotal =
-            item.price *
-            item.quantity;
-
-
+        const subtotal = item.price * item.quantity;
         total += subtotal;
 
-
-        const row =
-            document.createElement("div");
-
-
-        row.className =
-            "cart-row";
-
+        const row = document.createElement("div");
+        row.className = "cart-row";
 
         row.innerHTML = `
-
             <div>
-
-                <strong>
-                    ${item.name}
-                </strong>
+                <strong>${item.name}</strong>
 
                 <small>
-                    ${item.quantity}
-                    ×
-                    ${formatPeso(item.price)}
+                    ${item.quantity} × ${formatPeso(item.price)}
                 </small>
-
             </div>
 
-
-            <strong>
-                ${formatPeso(subtotal)}
-            </strong>
-
+            <strong>${formatPeso(subtotal)}</strong>
         `;
-
 
         cartItems.appendChild(row);
 
     });
 
-
-    totalPrice.textContent =
-        formatPeso(total);
+    totalPrice.textContent = formatPeso(total);
 
 }
 
@@ -337,168 +220,94 @@ function displayCart() {
    CLEAR ORDER
 ========================= */
 
-document
-    .getElementById("clearButton")
-    .addEventListener(
-        "click",
-        function () {
+document.getElementById("clearButton").addEventListener("click", function () {
 
-            if (cart.length === 0) {
-                return;
-            }
+    if (cart.length === 0) return;
 
+    if (!confirm("Clear your current order?")) return;
 
-            const confirmClear =
-                confirm(
-                    "Clear your current order?"
-                );
+    cart = [];
 
+    updateQuantityDisplay();
+    displayCart();
 
-            if (!confirmClear) {
-                return;
-            }
-
-
-            cart = [];
-
-
-            updateQuantityDisplay();
-
-            displayCart();
-
-        }
-    );
+});
 
 
 /* =========================
    SUBMIT ORDER
 ========================= */
 
-document
-    .getElementById("submitOrder")
-    .addEventListener(
-        "click",
-        function () {
+document.getElementById("submitOrder").addEventListener("click", function () {
 
-            if (cart.length === 0) {
+    if (cart.length === 0) {
 
-                alert(
-                    "Please select at least one item."
-                );
+        alert("Please select at least one item.");
+        return;
 
-                return;
+    }
 
-            }
+    let total = 0;
 
+    cart.forEach(item => {
+        total += item.price * item.quantity;
+    });
 
-            let total = 0;
+    const orders = getOrders();
+    const orderId = getNextOrderNumber();
 
+    const newOrder = {
 
-            cart.forEach(item => {
+        id: orderId,
 
-                total +=
-                    item.price *
-                    item.quantity;
+        date: new Date().toISOString(),
 
-            });
+        status: "pending",
 
-
-            const orders =
-                getOrders();
-
-
-            const orderId =
-                getNextOrderNumber();
-
-
-        const newOrder = {
-
-    id: orderId,
-
-    date:
-        new Date().toISOString(),
-
-    status: "pending",
-
-    items:
-        cart.map(item => ({
-
+        items: cart.map(item => ({
             id: item.id,
-
             name: item.name,
-
             price: item.price,
-
-            quantity:
-                item.quantity
-
+            quantity: item.quantity
         })),
 
-    total: total
+        total: total
 
-};
-                        
-            
+    };
 
+    orders.push(newOrder);
+    saveOrders(orders);
 
-            orders.push(newOrder);
+    document.getElementById("orderNumber").textContent =
+        "#" + String(orderId).padStart(3, "0");
 
+    document.getElementById("successTotal").textContent =
+        formatPeso(total);
 
-            saveOrders(orders);
+    document.getElementById("successModal").classList.add("show");
 
-
-            /* SHOW SUCCESS */
-
-            document.getElementById(
-                "orderNumber"
-            ).textContent =
-                "#" +
-                String(orderId)
-                    .padStart(3, "0");
-
-
-            document.getElementById(
-                "successTotal"
-            ).textContent =
-                formatPeso(total);
-
-
-            document.getElementById(
-                "successModal"
-            ).classList.add("show");
-
-
-        }
-    );
+});
 
 
 /* =========================
    DONE
 ========================= */
 
-document
-    .getElementById("doneButton")
-    .addEventListener(
-        "click",
-        function () {
+document.getElementById("doneButton").addEventListener("click", function () {
 
-            cart = [];
+    cart = [];
 
-            updateQuantityDisplay();
+    updateQuantityDisplay();
+    displayCart();
 
-            displayCart();
+    document.getElementById("successModal").classList.remove("show");
 
-
-            document.getElementById(
-                "successModal"
-            ).classList.remove("show");
-
-        }
-    );
+});
 
 
-/* INITIALIZE */
+/* =========================
+   INITIALIZE
+========================= */
 
 displayProducts();
-
 displayCart();
