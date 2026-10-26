@@ -1,32 +1,32 @@
 /* =========================================
    SILOG+ ORDERING SYSTEM
-   Modern Food Kiosk Design
+   Halloween Food Kiosk Design
 ========================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 
 :root {
-    --bg: #f8f6f1;
-    --surface: #ffffff;
-    --surface-soft: #f3f0e9;
+    --bg: #17111f;
+    --surface: #241b2b;
+    --surface-soft: #302437;
 
-    --text: #292820;
-    --muted: #8a887f;
+    --text: #fff6e9;
+    --muted: #c0afc5;
 
-    --primary: #385c45;
-    --primary-dark: #294735;
-    --primary-soft: #e7eee8;
+    --primary: #e46a32;
+    --primary-dark: #ff9a48;
+    --primary-soft: #492d38;
 
-    --accent: #e9a15b;
-    --accent-soft: #fff0df;
+    --accent: #f5bb55;
+    --accent-soft: #4a352d;
 
-    --pink: #e9b4ae;
-    --pink-soft: #f9e9e7;
+    --pink: #bf6b94;
+    --pink-soft: #3d273a;
 
-    --border: #e8e3da;
+    --border: #49374e;
 
     --shadow:
-        0 8px 30px rgba(43, 39, 29, 0.07);
+        0 14px 36px rgba(0, 0, 0, 0.28);
 
     --radius: 18px;
 }
@@ -113,7 +113,7 @@ body {
 
 
 .brand::before {
-    content: "🍳";
+    content: "";
 
     width: 48px;
     height: 48px;
@@ -207,7 +207,7 @@ body {
 
 
 .welcome::after {
-    content: "🍋";
+    content: "";
 
     position: absolute;
 
@@ -1246,7 +1246,7 @@ body {
 /* ICON BADGE */
 
 .stat-card::after {
-    content: "💰";
+    content: "";
 
     position: absolute;
 
@@ -1271,7 +1271,7 @@ body {
 
 
 .stat-card:nth-child(2)::after {
-    content: "⏳";
+    content: "";
 
     background:
         var(--accent-soft);
@@ -1279,7 +1279,7 @@ body {
 
 
 .stat-card:nth-child(3)::after {
-    content: "✅";
+    content: "";
 
     background:
         var(--primary-soft);
@@ -1287,7 +1287,7 @@ body {
 
 
 .stat-card:nth-child(4)::after {
-    content: "🚫";
+    content: "";
 
     background:
         var(--pink-soft);
@@ -1939,7 +1939,7 @@ td small {
 
 
 .cancel-button::before {
-    content: "✕";
+    content: "";
 
     font-size: 11px;
 }
@@ -2771,3 +2771,266 @@ td small {
     border-color:
         var(--primary);
    }
+}
+
+
+/* =========================================
+   HALLOWEEN AT THE SILOG CASTLE
+========================================= */
+
+body {
+    color-scheme: dark;
+    background:
+        radial-gradient(ellipse at 12% 7%, rgba(126, 57, 109, .28), transparent 30%),
+        radial-gradient(ellipse at 88% 18%, rgba(224, 102, 44, .16), transparent 27%),
+        linear-gradient(160deg, #17111f 0%, #211628 55%, #17111f 100%);
+}
+
+
+.brand::before {
+    content: "🦇";
+    background: linear-gradient(145deg, #61344f, #382640);
+    border: 1px solid #80536b;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, .25);
+}
+
+
+.brand h1,
+.welcome h2,
+.section-heading h2,
+.summary-header h2,
+.success-box h2,
+.sales-header h1,
+.report-heading h2,
+.receipt-toolbar h2 {
+    font-family: "Cinzel", "Playfair Display", serif;
+}
+
+
+.brand h1,
+.sales-header h1 {
+    color: var(--primary-dark);
+}
+
+
+.store-header {
+    border-bottom-color: var(--border);
+}
+
+
+.seller-link,
+.section-heading > span {
+    border: 1px solid rgba(245, 187, 85, .22);
+}
+
+
+.seller-link:hover {
+    background: var(--primary);
+}
+
+
+.welcome::after {
+    content: "☾";
+    color: var(--accent);
+    opacity: .32;
+    text-shadow: 0 0 24px rgba(245, 187, 85, .55);
+}
+
+
+.welcome h2 {
+    color: var(--text);
+    text-shadow: 0 4px 24px rgba(0, 0, 0, .25);
+}
+
+
+.welcome p:last-child,
+.sales-header p {
+    color: var(--muted);
+}
+
+
+.product-card,
+.order-summary,
+.success-box,
+.stat-card,
+.report-card,
+.order-card,
+.receipt-box {
+    background: linear-gradient(145deg, rgba(43, 31, 51, .98), rgba(34, 26, 41, .98));
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+}
+
+
+.product-card::before {
+    background: radial-gradient(circle, rgba(236, 119, 57, .32), rgba(236, 119, 57, .04) 70%);
+}
+
+
+.product-card:hover,
+.order-card:hover {
+    border-color: #89556a;
+}
+
+
+.product-category {
+    color: #c69bb7;
+}
+
+
+.product-price,
+.total-line strong,
+.order-card-footer > div:first-child strong,
+.order-number,
+.receipt-toolbar h2,
+.order-number-box strong,
+.success-total strong {
+    color: var(--primary-dark);
+}
+
+
+.quantity-box,
+.order-card-footer,
+.receipt-preview,
+.order-number-box {
+    background: var(--surface-soft);
+    border-color: var(--border);
+}
+
+
+.quantity-box button,
+.receipt-close,
+.receipt-secondary,
+.order-actions .receipt-button,
+.report-heading select {
+    background: #3a2b42;
+    color: var(--text);
+    border-color: var(--border);
+}
+
+
+.quantity-box button:hover,
+.receipt-secondary:hover,
+.order-actions .receipt-button:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+
+.order-summary::before {
+    height: 6px;
+    background: linear-gradient(90deg, #8c3d58, #ef7136, #f5bb55, #8c3d58);
+}
+
+
+.cart-row,
+.order-item,
+td,
+th {
+    border-color: var(--border);
+}
+
+
+td {
+    color: #e2d5e5;
+}
+
+
+th {
+    color: #d0b4cf;
+}
+
+
+.submit-button,
+.complete-button {
+    background: linear-gradient(135deg, #e46a32, #a63e45);
+    box-shadow: 0 6px 18px rgba(190, 73, 52, .25);
+}
+
+
+.submit-button:hover,
+.complete-button:hover {
+    background: linear-gradient(135deg, #f07c3c, #bd4a4d);
+}
+
+
+.stat-card:nth-child(3)::before,
+.stat-card:nth-child(3)::after {
+    background: #9b6caa;
+}
+
+
+.stat-card:nth-child(4)::before {
+    background: var(--pink);
+}
+
+
+.status-pending,
+.reopen-button {
+    color: #ffd27f;
+}
+
+
+.status-completed {
+    color: #f1a16b;
+}
+
+
+.status-cancelled,
+.cancel-button,
+.reset-button,
+.clear-button {
+    color: #f0a0c2;
+}
+
+
+.cancel-button,
+.reset-button,
+.clear-button {
+    border-color: #75405c;
+}
+
+
+.cancel-button:hover {
+    background: #a74666;
+    border-color: #a74666;
+}
+
+
+.reopen-button {
+    border-color: #72513b;
+}
+
+
+.reopen-button:hover {
+    background: #bd6c37;
+    border-color: #bd6c37;
+}
+
+
+.reset-button:hover {
+    background: var(--pink-soft);
+    border-color: var(--pink);
+}
+
+
+.modal {
+    background: rgba(10, 7, 15, .78);
+}
+
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background: #684c6b;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background: #8b5a68;
+}
