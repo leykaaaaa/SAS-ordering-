@@ -1,59 +1,47 @@
 const products = [
-
     {
         id: 1,
-        name: "Tapsilog",
+        name: "LuncheonSilog",
         category: "Silog Meal",
-        price: 85,
-        description:
-            "Beef tapa with garlic rice and fried egg."
+        price: 65,
+        description: "Luncheon meat with garlic rice and fried egg."
     },
-
     {
         id: 2,
-        name: "Longsilog",
+        name: "Hatsilog",
         category: "Silog Meal",
-        price: 80,
-        description:
-            "Longganisa with garlic rice and fried egg."
+        price: 65,
+        description: "Hotdog with garlic rice and fried egg."
     },
-
-    {
+     {
         id: 3,
-        name: "Tocilog",
-        category: "Silog Meal",
-        price: 80,
-        description:
-            "Tocino with garlic rice and fried egg."
+        name: "Hotdog Sandwich - Original",
+        category: "Hotdog Sandwich",
+        price: 55,
+        description: "Original hotdog sandwich."
     },
-
     {
         id: 4,
-        name: "Hotsilog",
-        category: "Silog Meal",
-        price: 75,
-        description:
-            "Hotdog with garlic rice and fried egg."
+        name: "Hotdog Sandwich - Chicken",
+        category: "Hotdog Sandwich",
+        price: 55,
+        description: "Chicken hotdog sandwich."
     },
-
     {
         id: 5,
-        name: "Chicksilog",
-        category: "Silog Meal",
-        price: 85,
-        description:
-            "Chicken with garlic rice and fried egg."
+        name: "Choco Drink 12 oz",
+        category: "Drink",
+        price: 15,
+        description: "Chocolate drink, 12 oz."
     },
-
     {
         id: 6,
-        name: "Lemonade",
+        name: "Choco Drink 16 oz",
         category: "Drink",
-        price: 30,
-        description:
-            "Refreshing homemade lemonade."
-    }
-
+        price: 20,
+        description: "Chocolate drink, 16 oz."
+    },
+   
 ];
 
 
