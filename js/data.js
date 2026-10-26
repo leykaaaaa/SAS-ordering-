@@ -3,26 +3,26 @@ const products = [
         id: 1,
         name: "LuncheonSilog",
         category: "Silog Meal",
-        price: 65,
+        price: 70,
         description: "Luncheon meat with garlic rice and fried egg."
     },
     {
         id: 2,
         name: "Hatsilog",
         category: "Silog Meal",
-        price: 65,
+        price: 60,
         description: "Hotdog with garlic rice and fried egg."
     },
      {
         id: 3,
-        name: "Hotdog Sandwich - Original",
+        name: "Overload Cheese",
         category: "Hotdog Sandwich",
-        price: 55,
+        price: 50,
         description: "Original hotdog sandwich."
     },
     {
         id: 4,
-        name: "Hotdog Sandwich - Chicken",
+        name: "Overload Chicken with Cheese",
         category: "Hotdog Sandwich",
         price: 55,
         description: "Chicken hotdog sandwich."
