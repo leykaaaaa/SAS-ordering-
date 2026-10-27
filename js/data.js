@@ -31,7 +31,7 @@ const products = [
         id: 5,
         name: "Choco Drink 12 oz",
         category: "Drink",
-        price: 15,
+        price: 10,
         description: "Chocolate drink, 12 oz."
     },
     {
